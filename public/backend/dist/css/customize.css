@@ -1,0 +1,128 @@
+/* ==============================
+   TABLE STYLING - DÙNG CHUNG
+   ============================== */
+
+/* Bảng bo góc nhẹ */
+.table {
+    overflow: hidden;
+    margin-bottom:10px !important;
+    background-color: #fff;
+}
+
+/* Header */
+.table thead th {
+    background-color: #f4f6f9; /* màu nhạt AdminLTE */
+    font-weight: 600;
+    text-align: center;
+    vertical-align: middle;
+    height:50px;
+}
+/* Tbody */
+.table tbody tr {
+    background-color: #f4f6f9; /* màu nhạt AdminLTE */
+    text-align: center;
+    vertical-align: middle;
+    height:50px;
+}
+/* Hover */
+.table tbody tr:hover {
+    background-color: #f9fafb;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Căn giữa checkbox và cột hành động */
+.table th:first-child,
+.table td:first-child,
+.table td:last-child {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Nút trong bảng */
+.table .btn {
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    border-radius: 6px;
+}
+
+/* Checkbox */
+.table input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+input:read-only{
+    background: #00000020;
+}
+
+input:read-only:focus{
+    background: #00000020;
+}
+
+.app-sidebar{
+    background-color: #0F172A !important;
+}
+
+.sidebar-brand{
+    background-color: #0F172A !important;
+    border-bottom : 0 !important ;
+}
+.sidebar-menu .nav-item a{
+    color:#fff !important;
+}
+
+.sidebar-menu .nav-item {
+    margin: 2px 0;
+}
+
+/* --- NÚT HÀNH ĐỘNG (ACTION BUTTONS) - PHIÊN BẢN CẬP NHẬT --- */
+/* Căn chỉnh các nút trong ô "Hành động" */
+.table td:last-child {
+    padding: 0 !important;
+}
+
+.table .btn {
+    display: inline-flex; /* Sử dụng flex để căn icon vào giữa hoàn hảo */
+    align-items: center;
+    justify-content: center;
+    
+    width: 38px;          /* Đặt chiều rộng cố định */
+    height: 38px;         /* Đặt chiều cao cố định */
+    padding: 0;           /* Bỏ padding mặc định để icon vào giữa */
+    
+    border: none;
+    border-radius: 8px;   /* Bo góc mềm mại hơn */
+    cursor: pointer;
+    margin-right: 6px;    /* Khoảng cách giữa các nút */
+    color: white;
+    
+    transition: all 0.2s ease-in-out; /* Hiệu ứng chuyển động mượt mà */
+}
+
+/* Hiệu ứng khi di chuột vào nút */
+.table .btn:hover {
+    filter: brightness(90%);
+    transform: translateY(-2px); /* Hiệu ứng nhấc nút lên một chút */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ tinh tế */
+}
+
+/* Bỏ khoảng cách cho nút cuối cùng trong ô */
+.table .btn:last-child {
+    margin-right: 0;
+}
+
+/* Màu nền cho các nút cụ thể */
+.table .btn-success {
+    background-color: var(--success-color, #28a745);
+}
+
+.table .btn-danger {
+    background-color: var(--danger-color, #dc3545);
+}
+
+/* Tăng kích thước cho icon bên trong nút */
+.table .btn i {
+    font-size: 18px; /* Kích thước icon lớn hơn, dễ nhìn hơn */
+    line-height: 1;  /* Đảm bảo icon không bị lệch */
+}
