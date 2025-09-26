@@ -50,6 +50,14 @@
                         <label for="address" class="form-label">Địa chỉ</label>
                         <input type="text" id="address" name="address" value="{{$user->address}}" class="form-control">
                     </div>
+                    <div class="mb-3">
+                        <label for="base_salary" class="form-label">Mức lương cơ bản</label>
+                        <div class="input-group">
+                            <input type="text" id="base_salary" name="base_salary" class="form-control"
+                                value="{{$user->base_salary}}" readonly>
+                            <span class="input-group-text">VND</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-6">
@@ -80,12 +88,21 @@
                     </div>
                     <div class=" mb-3">
                         <label for="" class="form-label">Chọn môn học giảng dạy</label>
-                        <select name="subject_id" class="form-select" id="">
+                        <select name="course_id" class="form-select" id="">
                             <option value="0">---Chọn môn học giảng dạy---</option>
-                            @foreach ($subjects as $key => $subject)
-                                <option value="{{$subject->id}}" {{$user->subjects->contains('id', $subject->id) ? 'selected' : ''}}>
-                                    {{$subject->name}}
+                            @foreach ($courses as $key => $course)
+                                <option value="{{$course->id}}" {{$user->courses->contains('id', $course->id) ? 'selected' : ''}}>
+                                    {{$course->name}}
                                 </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Tình trạng công tác</label>
+                        <select name="status" class="form-select" id="">
+                            <option>--- Chọn ---</option>
+                            @foreach ($teacher_status as $key => $status)
+                                <option value="{{$key}}">{{$status}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -93,22 +110,6 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="base_salary" class="form-label">Mức lương cơ bản</label>
-                        <div class="input-group">
-                            <input type="text" id="base_salary" name="base_salary" class="form-control"
-                                value="{{$user->base_salary}}" readonly>
-                            <span class="input-group-text">VND</span>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="col-md-6">
-
-
-                </div>
                 <div class="col-12">
                     <div class="mb-3">
                         <label for="bio" class="form-label">Giới thiệu bản thân</label>

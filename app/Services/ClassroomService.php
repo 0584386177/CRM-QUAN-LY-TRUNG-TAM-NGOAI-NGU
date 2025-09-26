@@ -23,7 +23,7 @@ class ClassroomService implements ClassroomServiceInterface
     {
 
         $limit = (!empty($params['limit']) && (int) $params['limit'] > 0) ? (int) $params['limit'] : config("repository.pagination.limit");
-        return $this->classroomRepo->with(['subject', 'teachers'])->paginate($limit);
+        return $this->classroomRepo->with(['course', 'teachers'])->paginate($limit);
     }
 
 
@@ -34,7 +34,8 @@ class ClassroomService implements ClassroomServiceInterface
 
         try {
             if (isset($payload) && !empty($payload)) {
-                if (!$payload['teacher_id']) return false;
+                if (!$payload['teacher_id'])
+                    return false;
 
                 $classroom = $this->classroomRepo->create($payload);
                 $classroom->teachers()->attach($payload['teacher_id']);
@@ -53,13 +54,15 @@ class ClassroomService implements ClassroomServiceInterface
 
     public function update($id, array $payload)
     {
-
+        $classroom = $this->classroomRepo->find($id);
         DB::beginTransaction();
-
         try {
-            if ($this->classroomRepo->find($id)) {
-                $this->classroomRepo->update($payload, $id);
+            if (!$classroom) {
+                flash()->error('Lỗi lớp học không hợp lệ. Vui lòng kiểm tra lại.');
+                return back();
             }
+            $classroom->teachers()->sync($payload['teacher_id']);
+            $this->classroomRepo->update($payload, $id);
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -68,7 +71,7 @@ class ClassroomService implements ClassroomServiceInterface
             return false;
         }
     }
-    
+
     public function delete($id)
     {
         $classroom = $this->classroomRepo->find($id);
@@ -76,7 +79,7 @@ class ClassroomService implements ClassroomServiceInterface
 
         try {
             if ($classroom) {
-                $detach =  $classroom->subject_id->detach();
+                $detach = $classroom->course_id->detach();
                 $this->classroomRepo->delete($id);
             }
             DB::commit();

@@ -6,7 +6,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles; // 
+use Spatie\Permission\Traits\HasRoles; //
+
+/**
+ * @mixin IdeHelperUser
+ */
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
@@ -63,8 +67,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Classroom::class, 'class_teacher', 'teacher_id', 'class_id');
     }
 
-    public function subjects()
+    public function courses()
     {
-        return $this->belongsToMany(Subject::class, 'subject_teacher', 'teacher_id', 'subject_id');
+        return $this->belongsToMany(Course::class, 'course_teacher', 'teacher_id', 'course_id');
     }
+
+  
 }

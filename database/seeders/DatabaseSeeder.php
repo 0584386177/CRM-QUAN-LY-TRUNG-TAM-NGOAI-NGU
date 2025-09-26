@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Subject;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Factories\UserFactory;

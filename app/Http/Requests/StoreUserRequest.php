@@ -29,6 +29,7 @@ class StoreUserRequest extends FormRequest
             'birthday' => ['required'],
             'hire_date' => ['required'],
             'teacher_type' => ['required'],
+            'status' => ['required', 'not_in:0'],
             'base_salary' => ['required'],
             'bio' => ['required', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],

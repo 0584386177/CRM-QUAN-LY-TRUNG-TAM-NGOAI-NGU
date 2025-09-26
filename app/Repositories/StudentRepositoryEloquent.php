@@ -15,7 +15,7 @@ use App\Validators\StudentValidator;
  */
 class StudentRepositoryEloquent extends BaseRepository implements StudentRepository
 {
-/**`
+    /**`
      * Specify Model class name
      *
      * @return string
@@ -29,13 +29,20 @@ class StudentRepositoryEloquent extends BaseRepository implements StudentReposit
     {
         $query = $this->model->query();
 
-        $keyword = $filter['keyword'];
+        $search = $filter['search'];
 
-        if (isset($keyword) && !empty($keyword)) {
-            $query->where(function ($q) use ($keyword) {
-                $q->where('fullname', 'LIKE', "%{$keyword}%")
-                    ->orWhere('email', 'LIKE', "%{$keyword}%")
-                    ->orWhere('phone', 'LIKE', "%{$keyword}%");
+        if (isset($search) && !empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('fullname', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%")
+                    ->orWhere('phone', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $tuition = $filter['filter_tuition'];
+        if ($tuition !== '' && !empty($tuition)) {
+            $query->where(function ($q) use ($tuition) {
+                $q->withWhereRelation('payments', 'fee_status', '=', $tuition);
             });
         }
 

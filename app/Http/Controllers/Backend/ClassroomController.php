@@ -4,24 +4,24 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\ClassroomRepositoryEloquent;
-use App\Repositories\SubjectRepositoryEloquent;
+use App\Repositories\CourseRepositoryEloquent;
 use App\Repositories\UserRepositoryEloquent;
 use App\Services\ClassroomService;
 use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
 {
-    protected $classRepo, $classService, $userRepo, $subjectRepo;
+    protected $classRepo, $classService, $userRepo, $courseRepo;
     public function __construct(
         ClassroomRepositoryEloquent $classRepo,
         ClassroomService $classService,
         UserRepositoryEloquent $userRepo,
-        SubjectRepositoryEloquent $subjectRepo
+        CourseRepositoryEloquent $courseRepo
     ) {
         $this->classRepo = $classRepo;
         $this->classService = $classService;
         $this->userRepo = $userRepo;
-        $this->subjectRepo = $subjectRepo;
+        $this->courseRepo = $courseRepo;
     }
 
     public function index(Request $request)
@@ -37,17 +37,17 @@ class ClassroomController extends Controller
     public function create()
     {
         $template = 'backend.classroom.create';
-        $config =  $this->config();
+        $config = $this->config();
         $teachers = $this->userRepo->all();
-        $subjects = $this->subjectRepo->all();
-        return view('layouts.admin', compact('template', 'config', 'teachers', 'subjects'));
+        $courses = $this->courseRepo->all();
+        return view('layouts.admin', compact('template', 'config', 'teachers', 'courses'));
     }
     public function store(Request $request)
     {
         $classroom = $request->validate([
             'name' => ['required'],
             'teacher_id' => ['required'],
-            'subject_id' => ['required'],
+            'course_id' => ['required'],
         ]);
 
         if ($this->classService->create($classroom)) {
@@ -62,10 +62,10 @@ class ClassroomController extends Controller
     {
         $classroom = $this->classRepo->find($id);
         $teachers = $this->userRepo->all();
-        $subjects = $this->subjectRepo->all();
+        $courses = $this->courseRepo->all();
         $template = 'backend.classroom.edit';
-        $config =  $this->config();
-        return view('layouts.admin', compact('template', 'config', 'subjects', 'teachers', 'classroom'));
+        $config = $this->config();
+        return view('layouts.admin', compact('template', 'config', 'courses', 'teachers', 'classroom'));
     }
 
     public function update($id, Request $request)
@@ -73,14 +73,14 @@ class ClassroomController extends Controller
         $classroom = $request->validate([
             'name' => ['required'],
             'teacher_id' => ['required'],
-            'subject_id' => ['required'],
+            'course_id' => ['required'],
         ]);
         if ($this->classService->update($id, $classroom)) {
 
-            flash()->success('Cập nhật môn học thành công');
+            flash()->success('Cập nhật lớp học thành công');
             return redirect()->route('classroom.index');
         }
-        flash()->error('Cập nhật môn học không thành công. Hãy thử lại.');
+        flash()->error('Cập nhật lớp học không thành công. Hãy thử lại.');
         return redirect()->route('classroom.index');
     }
 
@@ -88,7 +88,7 @@ class ClassroomController extends Controller
     {
         $classroom = $this->classRepo->find($id);
         $template = 'backend.classroom.delete';
-        $config =  $this->config();
+        $config = $this->config();
         return view('layouts.admin', compact('template', 'config', 'classroom'));
     }
 

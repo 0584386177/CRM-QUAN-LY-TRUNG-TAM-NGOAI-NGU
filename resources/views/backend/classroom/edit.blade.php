@@ -21,30 +21,31 @@
                     <div class="mb-3">
                         <label class="form-label">Mã lớp học</label>
                         <input type="text" name="name" value="{{$classroom->name}}" class="form-control">
-                        
+
                     </div>
                     <div class="mb-3"> <label for="fullname" class="form-label">Tên môn học</label>
-                        <select name="subject_id" class="form-select">
+                        <select name="course_id" class="form-select">
                             <option value=" 0">-- Chọn môn học --</option>
-                            @foreach($subjects as $key => $subject)
-                                <option value="{{$subject->id}}" {{$classroom->subject_id === $subject->id ? 'selected' : ""}}>{{$subject->name}}</option>
+                            @foreach($courses as $key => $course)
+                                <option value="{{$course->id}}" {{$classroom->course_id === $course->id ? 'selected' : ""}}>
+                                    {{$course->name}}</option>
                             @endforeach
                         </select>
                     </div> <!-- Cột phải -->
-                    
+
                 </div>
                 <div class="col-md-6">
-                        <div class="mb-3"> <label class="form-label">Phụ trách môn </label>
-                            <select name="teacher_id" class="form-select">
-                                <option value="0">-- Chọn giáo viên --</option>
-                                @foreach($teachers as $key => $teacher)
-                                    <option value=" {{$teacher->id}}" {{$subject->teacher_id === $teacher->id ? 'selected' : "" }}>
-                                        {{$teacher->fullname}}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="mb-3"> <label class="form-label">Phụ trách môn </label>
+                        <select name="teacher_id" class="form-select">
+                            <option value="0">-- Chọn giáo viên --</option>
+                            @foreach($teachers as $key => $teacher)
+                                <option value=" {{$teacher->id}}" {{$course->teacher_id === $teacher->id ? 'selected' : "" }}>
+                                    {{$teacher->fullname}}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
+                </div>
             </div>
         </div> <!-- Checkbox ở dưới -->
 </div> <!--end::Body--> <!--begin::Footer-->

@@ -24,38 +24,47 @@
 
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('user.index')}}" class="nav-link">
-                        <i class="bi bi-person"></i>
-                        <p>
-                            Quản lý giáo viên
-                        </p>
-                    </a>
-
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('student.index')}}" class="nav-link">
-                        <i class="bi bi-people"></i>
-                        <p>
-                            Quản lý học viên
-                        </p>
-                    </a>
-
-                </li>
-
-                <li class="nav-item">
-                    <a href="{{route('subject.index')}}" class="nav-link">
+                    <a href="{{ route('course.index') }}" class="nav-link">
                         <i class="bi bi-journal-text"></i>
                         <p>
-                            Quản lý khóa học
+                            Khóa học
                         </p>
                     </a>
 
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('classroom.index')}}" class="nav-link">
+                    <a href="{{ route('classroom.index') }}" class="nav-link">
                         <i class="bi bi-layout-text-window-reverse"></i>
                         <p>
-                            Quản lý lớp học
+                            Lớp học
+                        </p>
+                    </a>
+
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('user.index') }}" class="nav-link">
+                        <i class="bi bi-person"></i>
+                        <p>
+                            Giáo viên
+                        </p>
+                    </a>
+
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('student.index') }}" class="nav-link">
+                        <i class="bi bi-people"></i>
+                        <p>
+                            Học viên
+                        </p>
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('tuition.index') }}" class="nav-link">
+                        <i class="bi bi-cash-stack"></i>
+                        <p>
+                            Học phí
                         </p>
                     </a>
 

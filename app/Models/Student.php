@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+
 class Student extends Model
 {
     use HasFactory, Notifiable, HasRoles;
@@ -38,13 +39,18 @@ class Student extends Model
     {
         return $this->belongsToMany(Classroom::class, 'class_students', 'student_id', 'class_id');
     }
-    public function subjects()
+    public function courses()
     {
-        return $this->belongsToMany(Subject::class, 'students_subjects', 'student_id', 'subject_id');
+        return $this->belongsToMany(Course::class, 'course_student', 'student_id', 'course_id');
     }
 
     public function teachers()
     {
         return $this->belongsToMany(User::class, 'student_teachers', 'student_id', 'teacher_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(PaymentHistoric::class, 'student_id', 'id');
     }
 }

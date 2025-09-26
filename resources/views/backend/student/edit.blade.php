@@ -32,22 +32,47 @@
                     </div>
 
 
-                    <div class="mb-3"> <label for="birthday" class="form-label">Môn học</label>
-                        <select name="subject_id" id="" class="form-control">
-                            <option value="0">--- Chọn môn học ---</option>
-                            @foreach ($subjects as $subject)
-                                <option value="{{$subject->id}}" {{$student->subjects->contains('id', $subject->id) ? 'selected' : ""}}>
-                                    {{$subject->name}}
-                                </option>
+                    <div class="mb-3"> <label class="form-label">Khóa học</label>
+                        <select name="course_id" id="" class="form-control">
+                            <option value="0">--- Chọn khóa học ---</option>
+                            @foreach ($courses as $course)
+                                <option
+                                    value="{{$course->id}}" {{$student->courses->contains('id', $course->id) ? 'selected' : ""}}>
+                                        {{$course->name}}
+                                    </option>
                             @endforeach
                         </select>
                     </div>
+
+                    <div class=" mb-3">
+                                <label for="" class="form-label">Chọn lớp học</label>
+                                <select name="class_id" class="form-select" id="">
+                                    <option value="0">---Chọn lớp dạy học---</option>
+                                    @foreach ($classes as $class)
+                                        <option value="{{$class->id}}" {{$student->classes->contains('id', $class->id) ? 'selected' : ""}}>
+                                            {{$class->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                    </div>
+
                 </div> <!-- Cột phải -->
                 <div class="col-md-6">
                     <div class="mb-3"> <label class="form-label">Email</label> <input type="email" name="email"
                             value="{{$student->email}}" class="form-control"> </div>
                     <div class="mb-3"> <labeclass="form-label">Số điện thoại</label> <input type="tel" name="phone"
                                 value="{{$student->phone}}" class="form-control"> </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Giáo viên phụ trách</label>
+                        <select name="teacher_id" class="form-select" id="">
+                            <option value="1">---Chọn giáo viên---</option>
+                            @foreach ($teachers as $teacher)
+                                <option value="{{$teacher->id}}" {{$student->teachers->contains('id', $teacher->id) ? 'selected' : ""}}>
+                                    {{$teacher->fullname}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="mb-3"> <label class="form-label">Giới thiệu bản thân</label> <textarea name="bio"
                             value={{$student->bio}} rows="3" class="form-control"></textarea> </div>
                 </div>

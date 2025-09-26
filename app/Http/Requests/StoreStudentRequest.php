@@ -28,9 +28,12 @@ class StoreStudentRequest extends FormRequest
             'birthday' => ['required'],
             'address' => ['required'],
             'avatar' => ['nullable'],
-            'subject_id' => ['required'],
+            'course_id' => ['required'],
             'teacher_id' => ['required'],
             'class_id' => ['required'],
+            'fee_amount' => ['nullable'],
+            'paid_amount' => ['nullable'],
+            'remaining' => ['nullable'],
         ];
     }
 }

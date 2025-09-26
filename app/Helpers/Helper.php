@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class Helper
 {
-    public static function formatNumber(string $number)
+    public static function formatPhoneNumber(string $number)
     {
 
         if (strlen($number) === 10) {

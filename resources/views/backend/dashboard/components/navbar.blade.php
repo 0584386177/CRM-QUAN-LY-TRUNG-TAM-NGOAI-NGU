@@ -16,9 +16,24 @@
         <ul class="navbar-nav ms-auto">
             <!--begin::Navbar Search-->
             <li class="nav-item">
-                <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                    <i class="bi bi-search"></i>
-                </a>
+                <form action="simple-results.html" class="search-navbar-wrapper">
+                    <input class="form-control search-navbar-input" placeholder="Tìm kiếm học viên,...">
+                    <button type="submit" class="btn-search">
+                        <i class="bi bi-search"></i>
+                    </button>
+
+                    <div class="search-navbar-result">
+                        <div class="navbar-result-header" style="display: none;">
+                            Kết quả gợi ý
+                        </div>
+                        <div class="search-navbar-list">
+
+                        </div>
+                        <a href="#" class="navbar-result-footer" style="display: none;">
+                            Xem tất cả kết quả
+                        </a>
+                    </div>
+                </form>
             </li>
             <!--end::Navbar Search-->
             <!--begin::Messages Dropdown Menu-->

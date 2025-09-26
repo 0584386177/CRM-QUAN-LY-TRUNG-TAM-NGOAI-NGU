@@ -16,7 +16,7 @@ return [
         'edit' => 'Chỉnh sửa thông tin học viên',
         'delete' => 'Bạn có chắc chắn muốn xóa học viên này ? '
     ],
-    'subject' => [
+    'course ' => [
         'index' => 'Danh sách môn học',
         'create' => 'Thêm môn học mới',
         'edit' => 'Chỉnh sửa thông tin môn học',
@@ -27,6 +27,12 @@ return [
         'create' => 'Thêm lớp học mới',
         'edit' => 'Chỉnh sửa thông tin lớp học',
         'delete' => 'Bạn có chắc chắn muốn xóa lớp học này ? '
+    ],
+    'tuition' => [
+        'index' => 'Danh sách học phí',
+        'create' => 'Thêm học phí mới',
+        'edit' => 'Chỉnh sửa thông tin học phí',
+        'delete' => 'Bạn có chắc chắn muốn xóa học phí này ? '
     ],
 
 ];

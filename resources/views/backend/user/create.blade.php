@@ -2,7 +2,7 @@
     <div class="col-sm-6 mt-3">
         <ol class="breadcrumb float-sm-start">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{$config['breadcrumb']['create']}}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $config['breadcrumb']['create'] }}</li>
         </ol>
     </div>
     @if ($errors->any())
@@ -18,12 +18,12 @@
     @endif
 </div>
 
-<form method="POST" action="{{route('user.store')}}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data">
     <input type="hidden" name="activation_token" class="form-control">
     @csrf
     <div class="card card-primary card-outline mb-4">
         <div class="card-header">
-            <h3 class="card-title">{{$config['breadcrumb']['create']}}</h3>
+            <h3 class="card-title">{{ $config['breadcrumb']['create'] }}</h3>
         </div>
 
         <div class="card-body">
@@ -31,29 +31,32 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label for="fullname" class="form-label">Họ và tên</label>
-                        <input type="text" id="fullname" name="fullname" value="{{old('fullname')}}"
+                        <input type="text" id="fullname" name="fullname" value="{{ old('fullname') }}"
                             class="form-control">
                     </div>
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" name="email" value="{{old('email')}}" class="form-control">
+                        <input type="email" id="email" name="email" value="{{ old('email') }}"
+                            class="form-control">
                     </div>
 
                     <div class="mb-3">
                         <label for="phone" class="form-label">Số điện thoại</label>
-                        <input type="tel" id="phone" name="phone" value="{{old('phone')}}" class="form-control">
+                        <input type="tel" id="phone" name="phone" value="{{ old('phone') }}"
+                            class="form-control">
                     </div>
 
                     <div class="mb-3">
                         <label for="birthday" class="form-label">Ngày sinh</label>
-                        <input type="date" id="birthday" name="birthday" value="{{old('birthday')}}"
+                        <input type="date" id="birthday" name="birthday" value="{{ old('birthday') }}"
                             class="form-control">
                     </div>
 
                     <div class="mb-3">
                         <label for="address" class="form-label">Địa chỉ</label>
-                        <input type="text" id="address" name="address" value="{{old('address')}}" class="form-control">
+                        <input type="text" id="address" name="address" value="{{ old('address') }}"
+                            class="form-control">
                     </div>
                 </div>
 
@@ -70,7 +73,8 @@
                         <select name="teacher_type" id="teacher_type" class="form-select">
                             <option value="0">-- Chọn trạng thái --</option>
                             @foreach ($teacher_type as $key => $value)
-                                <option value="{{$key}}" {{ old('teacher_type') == $key ? 'selected' : '' }}>{{$value}}
+                                <option value="{{ $key }}"
+                                    {{ old('teacher_type') == $key ? 'selected' : '' }}>{{ $value }}
                                 </option>
                             @endforeach
                         </select>
@@ -84,6 +88,14 @@
                     <div class="mb-3">
                         <label for="re_password" class="form-label">Nhập lại mật khẩu</label>
                         <input type="password" id="re_password" name="re_password" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Tình trạng công tác</label>
+                        <select name="class_id" class="form-select" id="">
+                            <option>--- Chọn ---</option>
+                            <option value="1">Đang công tác</option>
+                            <option value="0">Đã nghỉ làm</option>
+                        </select>
                     </div>
 
 
@@ -101,16 +113,17 @@
                     </div>
                     <div class=" mb-3">
                         <label for="" class="form-label">Chọn môn học giảng dạy</label>
-                        <select name="subject_id" class="form-select" id="">
+                        <select name="course_id" class="form-select" id="">
                             <option value="0">---Chọn môn học giảng dạy---</option>
-                            @foreach ($subjects as $key => $subject)
-                                <option value="{{$subject->id}}">{{$subject->name}}</option>
+                            @foreach ($courses as $key => $course)
+                                <option value="{{ $course->id }}">{{ $course->name }}</option>
                             @endforeach
                         </select>
                     </div>
 
                 </div>
                 <div class="col-md-6">
+
 
                     <div class="mb-3">
                         <label for="avatar" class="form-label">Hình ảnh</label>
@@ -120,8 +133,8 @@
                         <label for="" class="form-label">Chọn lớp học để dạy</label>
                         <select name="class_id" class="form-select" id="">
                             <option value="0">---Chọn lớp dạy học---</option>
-                            @foreach($classes as $key => $class)
-                                <option value="{{$class->id}}">{{$class->name}}</option>
+                            @foreach ($classes as $key => $class)
+                                <option value="{{ $class->id }}">{{ $class->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -129,7 +142,7 @@
                 <div class="col-12">
                     <div class="mb-3">
                         <label for="bio" class="form-label">Giới thiệu bản thân</label>
-                        <textarea id="bio" name="bio" rows="3" class="form-control">{{old('bio')}}</textarea>
+                        <textarea id="bio" name="bio" rows="3" class="form-control">{{ old('bio') }}</textarea>
                     </div>
                 </div>
             </div>

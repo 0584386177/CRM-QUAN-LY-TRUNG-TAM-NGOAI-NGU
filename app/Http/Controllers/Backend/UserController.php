@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Enum\TeacherStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Repositories\ClassroomRepositoryEloquent;
-use App\Repositories\SubjectRepositoryEloquent;
+use App\Repositories\CourseRepositoryEloquent;
 use App\Repositories\UserRepositoryEloquent;
-use App\Services\SubjectService;
+use App\Services\CourseService;
 use App\Services\UserService;
 use App\TeacherType;
+use App\Traits\UploadFileTrait;
+use Exception;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -20,14 +23,14 @@ class UserController extends Controller
     protected $userRepo;
     protected $userService;
     protected $classroomRepo;
-    protected $subjectRepo;
-    public function __construct(UserRepositoryEloquent $userRepo, UserService $userService, SubjectRepositoryEloquent $subjectRepo, ClassroomRepositoryEloquent $classroomRepo)
+    protected $courseRepo;
+    public function __construct(UserRepositoryEloquent $userRepo, UserService $userService, CourseRepositoryEloquent $courseRepo, ClassroomRepositoryEloquent $classroomRepo)
     {
 
         $this->userRepo = $userRepo;
         $this->userService = $userService;
         $this->classroomRepo = $classroomRepo;
-        $this->subjectRepo = $subjectRepo;
+        $this->courseRepo = $courseRepo;
     }
     public function index(Request $request)
     {
@@ -43,9 +46,10 @@ class UserController extends Controller
         $template = 'backend.user.create';
         $teacher_type = TeacherType::labels();
         $classes = $this->classroomRepo->all();
-        $subjects = $this->subjectRepo->all();
-        $config =  $this->config();
-        return view('layouts.admin', compact('template', 'config', 'teacher_type', 'classes', 'subjects'));
+        $courses = $this->courseRepo->all();
+        $teacher_status = TeacherStatus::label();
+        $config = $this->config();
+        return view('layouts.admin', compact('template', 'config', 'teacher_type', 'teacher_status', 'classes', 'courses'));
     }
 
     public function store(StoreUserRequest $request)
@@ -61,13 +65,14 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = $this->userRepo->with(['subjects', 'classes'])->find($id);
+        $user = $this->userRepo->with(['courses', 'classes'])->find($id);
         $template = 'backend.user.edit';
-        $subjects = $this->subjectRepo->all();
+        $courses = $this->courseRepo->all();
         $classes = $this->classroomRepo->all();
         $teacher_type = TeacherType::labels();
-        $config =  $this->config();
-        return view('layouts.admin', compact('template', 'config', 'user', 'teacher_type', 'subjects', 'classes'));
+        $teacher_status = TeacherStatus::label();
+        $config = $this->config();
+        return view('layouts.admin', compact('template', 'config', 'user', 'teacher_type', 'teacher_status', 'courses', 'classes'));
     }
 
     public function update($id, Request $request)
@@ -85,7 +90,7 @@ class UserController extends Controller
     {
         $user = $this->userRepo->find($id);
         $template = 'backend.user.delete';
-        $config =  $this->config();
+        $config = $this->config();
         return view('layouts.admin', compact('template', 'config', 'user'));
     }
 
@@ -97,6 +102,25 @@ class UserController extends Controller
         }
         flash()->error('Xóa thành viên không thành công. Hãy thử lại.');
         return redirect()->route('user.index');
+    }
+
+    public function profile($id)
+    {
+
+        $user = $this->userRepo->find($id, ['*']);
+
+        if (!$user) {
+            flash()->error('Không tìm thấy thông tin');
+            return back();
+        }
+
+        $template = 'backend.user.profile';
+
+        return view('layouts.admin', compact('template', 'user'));
+
+
+
+
     }
 
     public function filter(Request $request)

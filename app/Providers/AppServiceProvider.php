@@ -4,19 +4,19 @@ namespace App\Providers;
 
 use App\Repositories\ClassroomRepository;
 use App\Repositories\ClassroomRepositoryEloquent;
+use App\Repositories\CourseRepository;
+use App\Repositories\CourseRepositoryEloquent;
 use App\Repositories\StudentRepository;
 use App\Repositories\StudentRepositoryEloquent;
-use App\Repositories\SubjectRepository;
-use App\Repositories\SubjectRepositoryEloquent;
 use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryEloquent;
 use App\Services\ClassroomService;
+use App\Services\CourseService;
 use App\Services\Interfaces\ClassroomServiceInterface;
+use App\Services\Interfaces\CourseServiceInterface;
 use App\Services\Interfaces\StudentServiceInterface;
-use App\Services\Interfaces\SubjectServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Services\StudentService;
-use App\Services\SubjectService;
 use App\Services\UserService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
@@ -32,8 +32,8 @@ class AppServiceProvider extends ServiceProvider
         UserRepository::class => UserRepositoryEloquent::class,
         StudentServiceInterface::class => StudentService::class,
         StudentRepository::class => StudentRepositoryEloquent::class,
-        SubjectServiceInterface::class => SubjectService::class,
-        SubjectRepository::class => SubjectRepositoryEloquent::class,
+        CourseServiceInterface::class => CourseService::class,
+        CourseRepository::class => CourseRepositoryEloquent::class,
         ClassroomServiceInterface::class => ClassroomService::class,
         ClassroomRepository::class => ClassroomRepositoryEloquent::class,
 
@@ -52,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
-
+        
         Blade::directive('price', fn($exp) =>
         "\\App\\Helpers\\Helper::formatPrice($exp)");
     }

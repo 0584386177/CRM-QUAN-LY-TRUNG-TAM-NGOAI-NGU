@@ -37,10 +37,10 @@
                         <label class="form-label">Môn học</label>
 
 
-                        <select name="subject_id" class="form-select">
+                        <select name="course_id" class="form-select">
                             <option value="0">-- Chọn môn học --</option>
-                            @foreach($subjects as $key => $subject)
-                                <option value="{{$subject->id}}">{{$subject->name}}</option>
+                            @foreach($courses as $key => $course)
+                                <option value="{{$course->id}}">{{$course->name}}</option>
                             @endforeach
                         </select>
                     </div>
