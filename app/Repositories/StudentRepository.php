@@ -11,5 +11,4 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface StudentRepository extends RepositoryInterface
 {
-    public function filter(array $filter = []);
 }

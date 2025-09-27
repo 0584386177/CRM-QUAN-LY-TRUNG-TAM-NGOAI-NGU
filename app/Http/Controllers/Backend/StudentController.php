@@ -19,7 +19,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
-    use Filterable;
     protected $studentRepo, $studentService, $classroomService, $classRepo, $userRepo, $courseRepo;
     public function __construct(
         UserRepositoryEloquent $userRepo,
@@ -40,13 +39,10 @@ class StudentController extends Controller
     {
         $template = "backend.student.index";
         $config = $this->config();
-        $params = $request->only(['page', 'limit']);
-
-        $students = $this->studentService->paginate($params);
-
-
-
-
+        $students = Student::query()
+            ->search($request->input('search'))
+            ->statusTuition($request->input('fee_status'))
+            ->paginate(10);
         return view('layouts.admin', compact('template', 'config', 'students'));
     }
 
@@ -114,22 +110,18 @@ class StudentController extends Controller
 
 
 
-    public function filter(Request $request)
-    {
-        $template = 'backend.student.index';
-        $filter = $request->all();
-        $config = $this->config();
-        $students = $this->studentRepo->filter($filter);
-        if ($students) {
-            return view('layouts.admin', compact('template', 'config', 'students'));
-        }
+    // public function filter(Request $request)
+    // {
 
-        if ($students->total() === 0) {
-            return view('layouts.admin', compact('template', 'config'));
-        }
+    //     $filters = $request->only(['search', 'fee_status']);
+    //     $students = Student::query()
+    //         ->search($filters['search'])
+    //         ->statusTuition($filters['fee_status'])
+    //         ->paginate(10)
+    //     ;
 
-        return abort(404, 'Không tìm thấy thông tin học viên');
-    }
+    //     return $students;
+    // }
 
     public function exportXLSX()
     {

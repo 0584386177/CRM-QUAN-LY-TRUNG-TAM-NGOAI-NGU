@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -53,4 +54,41 @@ class Student extends Model
     {
         return $this->hasMany(PaymentHistoric::class, 'student_id', 'id');
     }
+
+    // Lọc dữ liệu tìm kiếm
+    public function scopeSearch(Builder $query, $search)
+    {
+
+        return $query->when(!empty($search), function ($q) use ($search) {
+            // Lọc họ và tên
+            $q->where('fullname', 'LIKE', '%' . $search . '%')
+                // Lọc email
+                ->orWhere('email', 'LIKE', '%' . $search . '%')
+
+                // Lọc sdt
+                ->orWhere('phone', 'LIKE', '%' . $search . '%')
+                // Lọc theo lớp của học viên
+                ->orWhereHas('classes', function ($q2) use ($search) {
+                    $q2->where('name', 'LIKE', '' . $search . '');
+                })
+                // Lọc theo giáo viên của học viên
+                ->orWhereHas('teachers', function ($q3) use ($search) {
+                    $q3->where('fullname', 'LIKE', '' . $search . '');
+                })
+                // Lọc khóa học của học viên
+                ->orWhereHas('courses', function ($q4) use ($search) {
+                    $q4->where('name', 'LIKE', '' . $search . '');
+                });
+
+        });
+
+    }
+
+    public function scopeStatusTuition(Builder $query, $status)
+    {
+        return $query->when(!is_null($status), function ($q) use ($status) {
+            $q->withWhereRelation('payments', 'fee_status', '=', $status);
+        });
+    }
+
 }

@@ -1,4 +1,4 @@
-<form action="{{ route('student.filter') }}" method="GET" class="my-3">
+<form action="{{ route('student.index') }}" method="GET" class="my-3">
 
     <div class="d-flex justify-content-between align-items-center flex-wrap mt-2">
         <div class="d-flex align-items-center">
@@ -15,14 +15,15 @@
     <div class="d-flex justify-content-between align-items-center flex-wrap my-2">
         <!-- Bulk actions -->
         <div class="d-flex align-items-center">
-            <button type="submit" class="btn btn-outline-secondary btn-sm ms-3 me-3">
-                <i class="bi bi-arrow-repeat"></i> Refresh
-            </button>
-            <select name="filter_tuition" class="form-select form-select-sm custom-select ms-1 me-1"
-                style="width:200px;">
-                <option value="0">Lọc học phí</option>
+            <a href="{{ route('student.index') }}">
+                <button type="submit" class="btn btn-outline-secondary btn-sm ms-3 me-3">
+                    <i class="bi bi-arrow-repeat"></i> Refresh
+                </button>
+            </a>
+            <select name="fee_status" class="form-select form-select-sm custom-select ms-1 me-1" style="width:200px;">
+                <option value="">Lọc học phí</option>
                 <option value="unpaid">Chưa thanh toán</option>
-                <option value="partial">Còn thiếu</option>
+                <option value="partial">Còn nợ</option>
                 <option value="paid">Đã đóng</option>
             </select>
             <button type="submit" class="btn btn-outline-primary btn-sm ms-1">
@@ -33,7 +34,7 @@
         <!-- Search + New + Export -->
         <div class="d-flex align-items-center">
             <div class="input-group input-group-sm me-2" style="width: 300px;">
-                <input type="text" name="search" class="form-control" placeholder="Tìm kiếm học viên...">
+                <input type="text" name="search" class="form-control" placeholder="Tìm kiếm thông tin học viên...">
                 <button type="submit" class="input-group-text" id="basic-addon2"><i class="bi bi-search"></i></button>
             </div>
             <a href="{{ route('student.create') }}" class="btn btn-dark btn-sm me-3">

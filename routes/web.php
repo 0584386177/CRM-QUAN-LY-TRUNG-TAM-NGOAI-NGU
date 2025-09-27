@@ -48,7 +48,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update/{id}', [StudentController::class, 'update'])->name('student.update');
         Route::get('/delete/{id}', [StudentController::class, 'delete'])->name('student.delete');
         Route::post('/destroy/{id}', [StudentController::class, 'destroy'])->name('student.destroy');
-        Route::get('filter/', [StudentController::class, 'filter'])->name('student.filter');
         Route::get('/profile/{id}', [ProfileController::class, 'student'])->name('profile.index');
         Route::post('/payment/{id}', [PaymentController::class, 'updateTuitionStudent'])->name('student.tuition.update');
         Route::get('export/xlsx', [StudentController::class, 'exportXLSX'])->name('students.export.xlsx');

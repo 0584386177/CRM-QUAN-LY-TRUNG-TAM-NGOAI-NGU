@@ -23,17 +23,6 @@ class StudentService implements StudentServiceInterface
     {
         $this->studentRepo = $studentRepo;
     }
-    public function paginate(array $params)
-    {
-        // Nếu có limit và > 0 thì dùng, ngược lại lấy mặc định từ config
-        $limit = (!empty($params['limit']) && (int) $params['limit'] > 0)
-            ? (int) $params['limit']
-            : config('repository.pagination.limit', 15);
-        $params['limit'] = $limit > 100 ? 100 : $limit;
-
-        return $this->studentRepo->with(['classes', 'teachers', 'courses'])->paginate($params['limit']);
-    }
-
 
     public function create(array $payload)
     {
@@ -171,7 +160,7 @@ class StudentService implements StudentServiceInterface
 
             // Xác định trạng thái
             $fee_status = 'unpaid';
-            if ($new_total_paid == 0) {
+            if ($new_total_paid == 0 || $fee_amount == $remaining) {
                 $fee_status = 'unpaid';
             } elseif ($new_total_paid < $fee_amount) {
                 $fee_status = 'partial';
