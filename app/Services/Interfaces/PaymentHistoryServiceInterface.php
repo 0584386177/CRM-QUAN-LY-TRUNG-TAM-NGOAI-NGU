@@ -6,7 +6,7 @@ namespace App\Services\Interfaces;
  * Interface TuitionServiceInterface
  * @package App\Services\Interfaces
  */
-interface TuitionServiceInterface
+interface PaymentHistoryServiceInterface
 {
 
     public function getDataTuitionOnTable();

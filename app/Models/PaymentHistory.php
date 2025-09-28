@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class Tuition extends Model
+class PaymentHistory extends Model
 {
     protected $table = 'payment_histories';
 
@@ -23,6 +24,12 @@ class Tuition extends Model
     {
         return $this->belongsTo(Course::class, 'course_id', 'id');
     }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class, 'student_id', 'id');
+    }
+
 
 
 

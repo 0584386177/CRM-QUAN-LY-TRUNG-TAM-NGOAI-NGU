@@ -11,7 +11,7 @@ use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ProfileController;
-use App\Http\Controllers\Backend\TuitionController;
+use App\Http\Controllers\Backend\PaymentHistoryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -77,7 +77,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('filter/', [ClassroomController::class, 'filter'])->name('classroom.filter');
     });
     Route::prefix('tuition')->group(function () {
-        Route::get('/', [TuitionController::class, 'index'])->name('tuition.index');
+        Route::get('/', [PaymentHistoryController::class, 'index'])->name('tuition.index');
 
     });
 

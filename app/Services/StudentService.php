@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Course;
-use App\Models\PaymentHistoric;
+use App\Models\PaymentHistory;
 use App\Repositories\StudentRepositoryEloquent;
 use App\Services\Interfaces\StudentServiceInterface;
 use App\Traits\UploadFileTrait;
@@ -80,7 +80,7 @@ class StudentService implements StudentServiceInterface
                     $fee_status = 'paid';
                 }
 
-                PaymentHistoric::create([
+                PaymentHistory::create([
                     'class_id' => $payload['class_id'],
                     'course_id' => $payload['course_id'],
                     'student_id' => $student->id,

@@ -32,8 +32,5 @@ class Classroom extends Model
         return $this->belongsToMany(User::class, 'class_teacher', 'class_id', 'teacher_id');
     }
 
-    // public function payments()
-    // {
-    //     return $this->hasMany(PaymentHistoric::class, 'class_id', 'id');
-    // }
+  
 }

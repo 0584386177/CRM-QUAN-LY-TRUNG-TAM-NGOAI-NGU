@@ -52,8 +52,35 @@ class Student extends Model
 
     public function payments()
     {
-        return $this->hasMany(PaymentHistoric::class, 'student_id', 'id');
+        return $this->hasMany(PaymentHistory::class, 'student_id', 'id');
     }
+
+    // Lấy ngày đóng học phí gần nhất
+    public function lastestPayment()
+    {
+        return $this->hasOne(PaymentHistory::class, 'student_id', 'id')->latest('payment_date');
+    }
+
+    // Lấy tổng số tiền đã đóng
+    public function getTotalPaid()
+    {
+        return (int) $this->payments()->sum('paid_amount');
+    }
+
+    // lấy số tiền còn nợ học phí
+    public function getLastestRemaining()
+    {
+        return (int) $this->payments()->latest('payment_date')->value('remaining') ?? 0;
+
+    }
+
+    // Trạng thái đóng tiền gần nhất
+
+    public function getPaidStatus()
+    {
+        return $this->payments()->latest('payment_date')->value('fee_status') ?? 'Đang cập nhật';
+    }
+
 
     // Lọc dữ liệu tìm kiếm
     public function scopeSearch(Builder $query, $search)

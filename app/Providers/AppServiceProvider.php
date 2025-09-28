@@ -14,8 +14,10 @@ use App\Services\ClassroomService;
 use App\Services\CourseService;
 use App\Services\Interfaces\ClassroomServiceInterface;
 use App\Services\Interfaces\CourseServiceInterface;
+use App\Services\Interfaces\PaymentHistoryServiceInterface;
 use App\Services\Interfaces\StudentServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
+use App\Services\PaymentHistoryService;
 use App\Services\StudentService;
 use App\Services\UserService;
 use Illuminate\Pagination\Paginator;
@@ -36,8 +38,7 @@ class AppServiceProvider extends ServiceProvider
         CourseRepository::class => CourseRepositoryEloquent::class,
         ClassroomServiceInterface::class => ClassroomService::class,
         ClassroomRepository::class => ClassroomRepositoryEloquent::class,
-
-
+        PaymentHistoryServiceInterface::class => PaymentHistoryService::class,
     ];
     public function register(): void
     {
@@ -52,8 +53,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
-        
+
         Blade::directive('price', fn($exp) =>
-        "\\App\\Helpers\\Helper::formatPrice($exp)");
+            "\\App\\Helpers\\Helper::formatPrice($exp)");
     }
 }
