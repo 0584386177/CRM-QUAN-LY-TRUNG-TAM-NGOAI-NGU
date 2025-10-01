@@ -53,7 +53,8 @@
                                 <a href="#" class="btn btn-info" data-bs-toggle="tooltip" title="Xem thống kê">
                                     <i class="bi bi-graph-up"></i>
                                 </a>
-                                <a href="#" class="btn btn-primary" data-bs-toggle="tooltip" title="Xem chi tiết">
+                                <a href="{{ route('profile.index', $val['id']) }}" class="btn btn-primary"
+                                    data-bs-toggle="tooltip" title="Xem chi tiết">
                                     <i class="bi bi-person-vcard"></i>
                                 </a>
                                 {{-- <a href="#" class="btn btn-success" data-bs-toggle="tooltip" title="Sửa">

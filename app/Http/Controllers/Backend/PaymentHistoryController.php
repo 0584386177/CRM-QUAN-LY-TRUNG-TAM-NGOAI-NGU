@@ -18,19 +18,20 @@ class PaymentHistoryController extends Controller
     {
         $this->paymentHistoryService = $paymentHistoryService;
     }
-    public function index()
+    public function index(Request $request)
     {
         $template = 'backend.tuition.index';
         $config = $this->config();
 
-
         $students = Student::with(['courses', 'teachers', 'payments'])
-            ->get();
+            ->search($request->input('search'))
+            ->paginate(10);
 
-        
+
 
         $data = $students->map(function ($item) {
             return [
+                'id' => $item->id,
                 'fullname' => $item->fullname,
                 'course' => $item->courses
                     ->pluck('name')
@@ -43,8 +44,8 @@ class PaymentHistoryController extends Controller
                 'fee_status' => $item->getPaidStatus(),
             ];
 
-        });
-
+        })
+        ;
 
         return view('layouts.admin', compact('template', 'config', 'data'));
     }
